@@ -42,7 +42,7 @@ abc().then((TXres) => {
 // const fullNode = new HttpProvider("https://nile.trongrid.io");
 // const solidityNode = new HttpProvider("https://nile.trongrid.io");
 // const eventServer = new HttpProvider("https://nile.trongrid.io");
-// const privateKey = "65073c2a0a867c7855308ff1235fe6706b6419b151c92967f41807bb7fe0b7bf";
+// const privateKey = "";
 // const tronWeb = new TronWeb(fullNode, solidityNode, eventServer, privateKey);
 
 // async function abc(){

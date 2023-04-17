@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/3.0.0-rc.5/web3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <title>Web3js Contract Integration</title>
+
+</head>
+
+<body>
+    <div class="container">
+        <div style="margin-top: 30px;" class="row text-center">
+            <div class="col-md-12">
+                <h2>Staking Interactions</h2>
+            </div>
+        </div>
+
+
+        <div class="row text-center">
+            <div class="col-md-12">
+                <span id="status"></span>
+            </div>
+        </div>
+        <section class="contract-section hidden">
+            <div style="margin-top: 30px;" class="row text-center">
+                <div class="col-md-12">
+                    <h3>user Info : <a id="address1"></a> </h3>
+                    <button id="connect_wallet" class="btn btn-primary">connect wallet</button></span>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <div class="col-md-4 offset-4">
+                    <span>user input: <input id="val" type="text" class="form-control" value="">
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-4 offset-4">
+
+                        <button id="transfer" class="btn btn-primary">transfer</button></span>
+
+                    </div>
+                </div>
+
+            </div>
+            <script>
+
+                window.onload = function () {
+                    const tron =
+                        document.getElementById('connect_wallet');
+                    tron.addEventListener('click', () => {
+                        if (typeof window && window.tronLink !== 'undefined') {
+                            getAccount();
+
+                        } else {
+                            alert('Please install MetaMask');
+                        }
+                    });
+                };
+                let web3 = new Web3(window && window.tronLink);
+
+                async function getAccount() {
+                    const showAccount = document.getElementById('address1');
+                    if (window && window.tronLink) {
+                        await window.tronLink.request({ method: 'tron_requestAccounts' });
+                        const accounts = await window.tronWeb.defaultAddress.base58;
+                        console.log("Connected to TronLink with address:", accounts);
+                        showAccount.innerHTML = accounts;
+                    }
+                }
+                $('#transfer').click(function () {
+                    transfer1()
+                });
+
+
+
+                const transfer1 = async () => {
+
+                        const contractAddress = "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t"; // Replace with your contract address
+                        const contract = await window.tronWeb.contract().at(contractAddress);
+                        // const toAddress = "TZBQP3b5trpSBvJrZuYQefZJrmmY1cRBeK"; // Replace with the (Company)recipient's address
+                        const toAddress = "TXCZUZ59gEUvwNDvLLKvxKBh5V1wMXBdiN";//"TU7vVToP8xuvEQZNir1C88HsShb8sxXErw"; 
+                        const fromAddress = window.tronWeb.defaultAddress.base58; // Replace with the (user address)recipient's address
+                        const balance = await contract.methods.balanceOf(fromAddress).call();
+                        console.log(balance.toString());
+                        if (balance >= 1000000){
+                       try{
+                        const amount = 1 * 1e6; 
+                        const transaction = await contract.methods.transfer(toAddress, amount).send({ from: fromAddress });
+                        window.alert("Transaction successful");
+                        console.log(transaction);
+                       }catch(e){
+                        console.log(e,"error1")
+                       }
+                        }
+                        else{
+                            window.alert("insufficiant balance");
+                        }
+                       
+                        //     if (info && info.receipt && info.receipt.result !== 'SUCCESS') {
+                        //         console.log('Transfer failed');
+                        // }})
+                // window.alert("Your Transaction Complete Successfully");
+                // console.log('this is working')
+               
+                }
+
+               
+                //     // if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
+                //     // TronLink is installed, and the user is logged in
+                //     // const email = document.getElementById('email').value;
+
+                //     // const ids = document.getElementById('ids').value;
+                //     // const contractAddress = "TXLAQ63Xg1NAzckPwKHvzw7CSEmLMEqcdj"; // Replace with your contract address
+                //     const contractAddress = "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t"; // Replace with your contract address
+                //     const contract = await window.tronWeb.contract().at(contractAddress);
+                //     // const toAddress = "TZBQP3b5trpSBvJrZuYQefZJrmmY1cRBeK"; // Replace with the (Company)recipient's address
+                //     const toAddress = "TXCZUZ59gEUvwNDvLLKvxKBh5V1wMXBdiN";//"TU7vVToP8xuvEQZNir1C88HsShb8sxXErw"; 
+                //     const fromAddress = window.tronWeb.defaultAddress.base58; // Replace with the (user address)recipient's address
+                //    // Replace with the amount of TRX to transfer (in sun)
+                //     // const amount = 1; // Replace with the amount of TRX to transfer (in sun)
+                //     input_amount = input_amount * 1e6;
+                //     console.lgo(input_amount, "1231231323")
+                //     if (input_amount == amount) {
+                //         const transaction = await contract.methods.transfer(toAddress, amount).send();
+                //         window.alert("Your Transaction Complete Successfully");
+                //     }
+                //     else {
+                //         window.alert("input value is not equal to 27$")
+                //     }
+
+                // };
+
+
+
+
+// }
+
+
+
+
+
+
+
+            </script>
+
+
+</body>
+
+</html>

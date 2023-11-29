@@ -1,0 +1,18 @@
+.functionInput {
+  border: none;
+  padding: 0.6em;
+  text-align: center;
+  width: 20em;
+  margin-right: 0.5em;
+  height: auto;
+  margin: 0.1em;
+
+}
+.functionInput:focus {
+  outline: none;
+
+}
+
+.functionInput::placeholder {
+  color: rgba(43, 43, 43, 0.527);
+}

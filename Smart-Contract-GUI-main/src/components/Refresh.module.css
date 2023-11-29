@@ -1,0 +1,33 @@
+.refresh {
+  height: 2em;
+  margin-top: 0.2em;
+  margin-right: 0.2em;
+  border-radius: 1em;
+}
+.refresh:active {
+  outline: none;
+}
+
+.refreshBtn {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 1em;
+  outline: none;
+}
+
+.refreshBtn:hover {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.refreshBtn .refresh {
+  width: 24px;
+  height: 24px;
+  transition: all 0.4s ease-in-out;
+}
+
+.refreshBtn:hover .refresh {
+  transform: rotate(-60deg) scale(1.2);
+  cursor: pointer;
+}
